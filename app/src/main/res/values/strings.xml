@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">DP6</string>
+    
+    <!-- Strings related to login -->
+    <string name="prompt_login">Login</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_login">Entrar</string>
+    <string name="error_invalid_email">Login inválido</string>
+    <string name="error_invalid_password">Senha inválida</string>
+    <string name="error_field_required">Campo obrigatório</string>
+    <string name="title_activity_content">Marketing Data Science</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
