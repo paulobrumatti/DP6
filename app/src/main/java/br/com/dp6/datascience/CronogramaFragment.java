@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.dp6.datascience.dummy.DummyContent;
-
 /**
  * A fragment representing a list of Items.
  *
@@ -18,8 +16,14 @@ import br.com.dp6.datascience.dummy.DummyContent;
  * interface.
  */
 public class CronogramaFragment extends ListFragment {
-
     private OnFragmentInteractionListener mListener;
+
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public CronogramaFragment() {
+    }
 
     // TODO: Rename and change types of parameters
     public static CronogramaFragment newInstance() {
@@ -29,36 +33,48 @@ public class CronogramaFragment extends ListFragment {
         return fragment;
     }
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public CronogramaFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: Change Adapter to display your content
-        //setListAdapter(new SimpleAdapter(this.getContext(), eventoList));
-    }
+        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+        String[] horarios = {
+                "08:00 am - Café da Manhã",
+                "09:00 am - Abertura",
+                "09:30 am - Palestra: Atribuição Algorítmica",
+                "10:15 am - Debate: Atribuição Algorítmica",
+                "10:45 am - Coffee Break",
+                "11:15 am - Palestra: Hiper-Personalização",
+                "12:00 pm - Debate: Hiper-Personalização",
+                "12:30 pm - Almoço"
+        };
 
-    HashMap<String,Integer> maps = new HashMap<String,Integer>();
+        String[] programacao = {
+                "Início",
+                "Tiago Turini (DP6)",
+                "Paul Dodd (Google)",
+                "Google e DP6",
+                "Intervalo",
+                "Jon Tehero (Adobe)",
+                "Adobe e DP6",
+                "Encerramento"
+        };
 
-    public Evento[] eventoList = {
-            new Evento("8:00 am", "Café da Manhã"),
-            new Evento("9:00 am", "Abertura do Evento"),
-            new Evento("9:30 am", "Atribuição Algorítmica")
-    };
-
-    public class Evento {
-        public String time;
-        public String title;
-        public Evento(String time, String title) {
-            this.time = time;
-            this.title = title;
+        for (int i = 0; i < programacao.length; i++) {
+            Map<String, String> datum = new HashMap<String, String>(2);
+            datum.put("title", horarios[i]);
+            datum.put("subtitle", programacao[i]);
+            data.add(datum);
         }
+
+        this.setListAdapter(new SimpleAdapter(
+                this.getContext(),
+                data,
+                R.layout.custom_listview,
+                new String[]{"title", "subtitle"},
+                new int[]{R.id.text1, R.id.text2}
+        ));
+
     }
 
     /**
@@ -71,7 +87,7 @@ public class CronogramaFragment extends ListFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        void onFragmentInteraction(String id);
     }
 
 }
