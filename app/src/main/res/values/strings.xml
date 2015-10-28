@@ -16,7 +16,10 @@
     <string name="local_endereco">Rua Haddock Lobo, 1738, Jardim Paulista, SP</string>
     <string name="local_manobrista">Serviço de manobrista gratuito disponível no local.</string>
     <string name="google_maps_key">AIzaSyC6AvfLWemvyWTu_ec42T9zZ1ct50QLoMI</string>
-
+    <string name="sobre_paragrafo_1">Em Novembro de 2015 a DP6 completa 8 anos, e para marcar a data resolvemos dividir com os nossos clientes e parceiros um pouco da nossa visão de futuro no uso de dados para marketing digital.</string>
+    <string name="sobre_paragrafo_2">Confirmamos a presença de dois especialistas internacionais em Atribuição Multicanal e Hiper-personalização de Conteúdo, juntamente com a equipe da DP6, para fazer um evento com profundidade, networking e participação de líderes convidados, responsáveis por pensar a estratégia de marketing em grandes empresas.</string>
+    <string name="sobre_paragrafo_3">A DP6 é uma consultoria de Data Intelligence que busca, por meio da exploração de dados (Big Data), acompanhar todos os pontos de contato entre consumidor e marcas. Nesse trabalho são utilizadas as melhores soluções de tecnologias de marketing (como o Adobe e o Google Marketing Clouds), todas com acompanhamento de uma equipe técnica certificada que garante a qualidade dos dados coletados.</string>
+    <string name="sobre_paragrafo_4">As informações obtidas pela DP6 são avaliadas por cientistas de dados, com sólida formação acadêmica e vasta experiência no mercado, que transformam as análises em resultados estratégicos e objetivos de negócios a serem utilizados na tomada de decisão dos clientes. Com 7 anos de experiência no mercado, a DP6 atua desde o processo de engenharia de dados, digital analytics, social intelligence até a performance de mídia.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -23,6 +23,14 @@ public class LocalFragment extends Fragment {
     MapView mMapView;
     private GoogleMap googleMap;
 
+    public LocalFragment() {
+
+    }
+
+    public static LocalFragment newInstance() {
+        return new LocalFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

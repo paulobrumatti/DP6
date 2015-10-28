@@ -27,10 +27,7 @@ public class CronogramaFragment extends ListFragment {
 
     // TODO: Rename and change types of parameters
     public static CronogramaFragment newInstance() {
-        CronogramaFragment fragment = new CronogramaFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        return new CronogramaFragment();
     }
 
     @Override
@@ -70,7 +67,7 @@ public class CronogramaFragment extends ListFragment {
         this.setListAdapter(new SimpleAdapter(
                 this.getContext(),
                 data,
-                R.layout.custom_listview,
+                R.layout.custom_lista_horarios,
                 new String[]{"title", "subtitle"},
                 new int[]{R.id.text1, R.id.text2}
         ));

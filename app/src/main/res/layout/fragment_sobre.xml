@@ -1,0 +1,63 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="br.com.dp6.datascience.SobreFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/sobreLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:paddingLeft="64dp"
+            android:paddingRight="64dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/sobreParagrafo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/sobre_paragrafo_1" />
+
+        <TextView
+            android:id="@+id/sobreParagrafo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/sobre_paragrafo_2" />
+
+        <ImageView
+            android:id="@+id/sobreLogo2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:paddingLeft="64dp"
+            android:paddingRight="64dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/dp6" />
+
+        <TextView
+            android:id="@+id/sobreParagrafo3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/sobre_paragrafo_3" />
+
+        <TextView
+            android:id="@+id/sobreParagrafo4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/sobre_paragrafo_4" />
+    </LinearLayout>
+</ScrollView>

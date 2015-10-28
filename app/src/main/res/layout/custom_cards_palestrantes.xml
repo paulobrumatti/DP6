@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><!-- A CardView that contains a TextView -->
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/palestrantesCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/palestrantePhoto"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp" />
+
+        <TextView
+            android:id="@+id/palestranteName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/palestrantePhoto"
+            android:textColor="#000000"
+            android:textSize="28dp" />
+
+        <TextView
+            android:id="@+id/palestranteCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/palestranteName"
+            android:layout_toRightOf="@+id/palestrantePhoto"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/palestranteBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/palestrantePhoto"
+            android:paddingTop="8dp"
+            android:textSize="14dp" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
