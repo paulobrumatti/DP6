@@ -27,14 +27,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/sobre_paragrafo_1" />
+            android:text="@string/sobre_paragrafo_1"
+            android:textColor="@color/colorSecondaryText" />
 
         <TextView
             android:id="@+id/sobreParagrafo2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/sobre_paragrafo_2" />
+            android:text="@string/sobre_paragrafo_2"
+            android:textColor="@color/colorSecondaryText" />
 
         <ImageView
             android:id="@+id/sobreLogo2"
@@ -51,13 +53,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/sobre_paragrafo_3" />
+            android:text="@string/sobre_paragrafo_3"
+            android:textColor="@color/colorSecondaryText" />
 
         <TextView
             android:id="@+id/sobreParagrafo4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/sobre_paragrafo_4" />
+            android:text="@string/sobre_paragrafo_4"
+            android:textColor="@color/colorSecondaryText" />
     </LinearLayout>
 </ScrollView>
