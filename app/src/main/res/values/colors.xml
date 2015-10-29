@@ -5,4 +5,6 @@
     <color name="colorAccent">#cddc39</color>
     <color name="colorPrimaryText">#202020</color>
     <color name="colorSecondaryText">#737373</color>
+    <color name="colorBackground">#FAFAFA</color>
+    <color name="colorCardBackground">#FFFFFF</color>
 </resources>
