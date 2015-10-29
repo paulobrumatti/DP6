@@ -22,10 +22,13 @@
                 android:id="@+id/localTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="8sp"
+                android:paddingBottom="8dp"
+                android:paddingEnd="8sp"
                 android:paddingStart="8sp"
                 android:text="@string/local_titulo"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -34,22 +37,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/localTitulo"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="8sp"
-                android:paddingStart="8sp"
                 android:text="@string/local_endereco"
-                android:textColor="#757575" />
+                android:textColor="@color/colorSecondaryText" />
 
             <TextView
                 android:id="@+id/localManobrista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/localEndereco"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="4sp"
-                android:paddingStart="8sp"
+                android:paddingBottom="12dp"
                 android:text="@string/local_manobrista"
-                android:textColor="#757575" />
+                android:textColor="@color/colorSecondaryText" />
 
             <com.google.android.gms.maps.MapView
                 android:id="@+id/mapView"

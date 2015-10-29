@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".SplashActivity"
-            android:label="@string/title_activity_splash"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,14 +27,14 @@
         <activity
             android:name=".LoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/app_name"
+            android:label="@string/title_login"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".ContentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="@string/title_activity_content"
+            android:label="@string/title_content"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

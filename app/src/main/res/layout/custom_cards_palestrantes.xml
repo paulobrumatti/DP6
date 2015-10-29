@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/palestrantePhoto"
-            android:textColor="#000000"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="28dp" />
 
         <TextView
@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/palestranteName"
             android:layout_toRightOf="@+id/palestrantePhoto"
+            android:textColor="@color/colorSecondaryText"
             android:textSize="18dp" />
 
         <TextView
@@ -45,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/palestrantePhoto"
             android:paddingTop="8dp"
+            android:textColor="@color/colorSecondaryText"
             android:textSize="14dp" />
 
     </RelativeLayout>
