@@ -22,4 +22,10 @@
     <string name="sobre_paragrafo_4">As informações obtidas pela DP6 são avaliadas por cientistas de dados, com sólida formação acadêmica e vasta experiência no mercado, que transformam as análises em resultados estratégicos e objetivos de negócios a serem utilizados na tomada de decisão dos clientes. Com 7 anos de experiência no mercado, a DP6 atua desde o processo de engenharia de dados, digital analytics, social intelligence até a performance de mídia.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="splash_adobe">Adobe</string>
+    <string name="splash_dp6">DP6</string>
+    <string name="splash_google">Google</string>
+    <string name="splash_patrocinio">Patrocínio</string>
 </resources>
