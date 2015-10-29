@@ -1,12 +1,12 @@
 package br.com.dp6.datascience;
 
-class Person {
+class Palestrante {
     String nome;
     String empresa;
     String bio;
     int photoId;
 
-    Person(String nome, String empresa, String bio, int photoId) {
+    Palestrante(String nome, String empresa, String bio, int photoId) {
         this.nome = nome;
         this.empresa = empresa;
         this.bio = bio;

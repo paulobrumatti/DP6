@@ -14,11 +14,10 @@ import java.util.List;
 
 public class PalestrantesFragment extends Fragment {
 
-    private List<Person> pessoas;
+    private List<Palestrante> palestrantes;
     private RecyclerView rv;
 
     public PalestrantesFragment() {
-        // Required empty public constructor
     }
 
     public static PalestrantesFragment newInstance() {
@@ -36,27 +35,26 @@ public class PalestrantesFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_palestrantes, container, false);
         initializeRecycler(v);
+        initializeData();
+        initializeAdapter();
         return v;
     }
 
     public void initializeRecycler(View v) {
         rv = (RecyclerView) v.findViewById(R.id.palestrantesRecyclerView);
-        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
-        rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
-        initializeData();
-        initializeAdapter();
+        rv.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
 
     private void initializeData() {
-        pessoas = new ArrayList<>();
-        pessoas.add(new Person("Jon Tehero", "Adobe", "Senior Product Manager da Adobe, trabalha para evangelizar a prática da personalização de conteúdo, testes iterativos e automação da jornada dos consumidores no mundo do marketing digital. Tehero é Mestre em Sistemas Interativos pela Brigham Young University e atuou como consultor para algumas das maiores empresas norte-americanas de forma independente e pela KPMG. ", R.drawable.round_jon));
-        pessoas.add(new Person("Paul Dodd", "Google", "Head of Sales do Google, foi VP of World Wide Sales da Adometry, empresa especializada em atribuição algorítmica multi-canal adquirida pelo Google. Anteriormente, Paul trabalhou como VP de Vendas no Bazaarvoice e como executivo na Dell, TestChip Technologies e Advanced Micro Devices, além de ser Mestre em Administração pela Baylor University", R.drawable.round_dodd));
-        pessoas.add(new Person("Tiago Turini", "DP6", "Sócio-Fundador e CEO da DP6, engenheiro mecatrônico pela Escola Politécnica (USP), trabalhou em empresas como Booz Allen, Promon, Microsoft, American Express e AgênciaClick nas áreas de estratégia, planejamento financeiro, Business Intelligence, gerenciamento de projetos entre outros.", R.drawable.round_turini));
+        palestrantes = new ArrayList<>();
+        palestrantes.add(new Palestrante("Jon Tehero", "Adobe", "Senior Product Manager da Adobe, trabalha para evangelizar a prática da personalização de conteúdo, testes iterativos e automação da jornada dos consumidores no mundo do marketing digital. Tehero é Mestre em Sistemas Interativos pela Brigham Young University e atuou como consultor para algumas das maiores empresas norte-americanas de forma independente e pela KPMG. ", R.drawable.round_jon));
+        palestrantes.add(new Palestrante("Paul Dodd", "Google", "Head of Sales do Google, foi VP of World Wide Sales da Adometry, empresa especializada em atribuição algorítmica multi-canal adquirida pelo Google. Anteriormente, Paul trabalhou como VP de Vendas no Bazaarvoice e como executivo na Dell, TestChip Technologies e Advanced Micro Devices, além de ser Mestre em Administração pela Baylor University", R.drawable.round_dodd));
+        palestrantes.add(new Palestrante("Tiago Turini", "DP6", "Sócio-Fundador e CEO da DP6, engenheiro mecatrônico pela Escola Politécnica (USP), trabalhou em empresas como Booz Allen, Promon, Microsoft, American Express e AgênciaClick nas áreas de estratégia, planejamento financeiro, Business Intelligence, gerenciamento de projetos entre outros.", R.drawable.round_turini));
     }
 
     private void initializeAdapter() {
-        PalestrantesRVAdapter adapter = new PalestrantesRVAdapter(pessoas);
+        PalestrantesRVAdapter adapter = new PalestrantesRVAdapter(palestrantes);
         rv.setAdapter(adapter);
     }
 }

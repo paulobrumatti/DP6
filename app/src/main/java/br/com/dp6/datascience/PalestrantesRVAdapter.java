@@ -12,9 +12,9 @@ import java.util.List;
 
 public class PalestrantesRVAdapter extends RecyclerView.Adapter<PalestrantesRVAdapter.PersonViewHolder> {
 
-    List<Person> persons;
+    List<Palestrante> persons;
 
-    PalestrantesRVAdapter(List<Person> persons) {
+    PalestrantesRVAdapter(List<Palestrante> persons) {
         this.persons = persons;
     }
 
