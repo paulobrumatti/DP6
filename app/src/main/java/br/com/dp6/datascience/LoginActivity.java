@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +23,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.gms.tagmanager.DataLayer;
+import com.google.android.gms.tagmanager.TagManager;
 
 /**
  * A login screen that offers login via email/password.
@@ -39,6 +43,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private Activity mLogin;
 
+    private DataLayer dataLayer;
+    private TagManager tagManager = TagManager.getInstance(this);
+    private static final String SCREEN_NAME = "Login";
+
+
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -48,6 +57,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        dataLayer = TagManager.getInstance(this).getDataLayer();
+        dataLayer.pushEvent("openScreen", DataLayer.mapOf("screenName", SCREEN_NAME));
+
         mLogin = this;
         mLoginView = (TextView) findViewById(R.id.login);
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -78,6 +91,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                dataLayer.pushEvent("eventGA",
+                        DataLayer.mapOf("eventGA",
+                                DataLayer.mapOf(
+                                        "category", "Login",
+                                        "action",   "Click",
+                                        "label",    "Sign In"
+                                )
+                        )
+                );
+                tagManager.dispatch();
+                Log.i("GTM", "Evento");
                 attemptLogin();
                 //changeScreen();
             }

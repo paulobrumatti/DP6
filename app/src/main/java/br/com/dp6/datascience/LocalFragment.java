@@ -2,6 +2,7 @@ package br.com.dp6.datascience;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class LocalFragment extends Fragment {
 
     MapView mMapView;
     private GoogleMap googleMap;
-
+    private CameraPosition cameraPosition;
     public LocalFragment() {
 
     }
@@ -63,13 +64,19 @@ public class LocalFragment extends Fragment {
 
         // adding marker
         googleMap.addMarker(marker);
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(latitude, longitude)).zoom(18).build();
-        googleMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(cameraPosition));
+        cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(latitude, longitude)).zoom(15).build();
+
+        resetMapPosition();
 
         // Perform any camera updates here
         return v;
+    }
+
+    public void resetMapPosition() {
+        Log.i("map", "reset");
+        googleMap.animateCamera(CameraUpdateFactory
+                .newCameraPosition(cameraPosition));
     }
 
     @Override
