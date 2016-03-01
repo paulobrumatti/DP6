@@ -10,9 +10,6 @@ import com.google.android.gms.tagmanager.TagManager;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by paulo.brumatti on 01/03/2016.
- */
 public class GTMHelper {
     public static final String CONTAINER_ID = "GTM-TMN6QJ";
     public static TagManager tagManager;
