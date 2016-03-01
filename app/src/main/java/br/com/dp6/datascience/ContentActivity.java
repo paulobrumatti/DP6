@@ -94,7 +94,9 @@ public class ContentActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return fragmentList[position].fragment;
+            FragmentDict frag = fragmentList[position];
+            GTMHelper.pushScreenview(frag.title);
+            return frag.fragment;
         }
 
         @Override

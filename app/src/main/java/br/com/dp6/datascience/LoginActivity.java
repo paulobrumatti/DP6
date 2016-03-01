@@ -24,16 +24,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.tagmanager.DataLayer;
-import com.google.android.gms.tagmanager.TagManager;
-
-/**
- * A login screen that offers login via email/password.
- */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+
+    private static final String SCREEN_NAME = "Login";
+
     private UserLoginTask mAuthTask = null;
 
     // UI references.
@@ -41,12 +35,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private Activity mLogin;
-
-    private DataLayer dataLayer;
-    private TagManager tagManager = TagManager.getInstance(this);
-    private static final String SCREEN_NAME = "Login";
-
 
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -58,11 +46,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        dataLayer = TagManager.getInstance(this).getDataLayer();
-        dataLayer.pushEvent("openScreen", DataLayer.mapOf("screenName", SCREEN_NAME));
+        GTMHelper.pushScreenview(SCREEN_NAME);
 
-        mLogin = this;
-        mLoginView = (TextView) findViewById(R.id.login);
+        mLoginView = (EditText) findViewById(R.id.login);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -75,32 +61,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+        mLoginView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     hideKeyboard(v);
+                    GTMHelper.pushEvent("Login", "Change", "Login Field");
                 }
             }
-        };
+        });
+        mPasswordView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                    GTMHelper.pushEvent("Login", "Change", "Password Field");
+                }
+            }
+        });
 
-        mLoginView.setOnFocusChangeListener(listener);
-        mPasswordView.setOnFocusChangeListener(listener);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                dataLayer.pushEvent("eventGA",
-                        DataLayer.mapOf("eventGA",
-                                DataLayer.mapOf(
-                                        "category", "Login",
-                                        "action",   "Click",
-                                        "label",    "Sign In"
-                                )
-                        )
-                );
-                tagManager.dispatch();
+                GTMHelper.pushEvent("Login", "Click", "Sign In");
                 Log.i("GTM", "Evento");
                 attemptLogin();
                 //changeScreen();
@@ -229,7 +214,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             try {
                 // Simulate network access.
-                Thread.sleep(2000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 return false;
             }
@@ -244,8 +229,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
-                Intent i = new Intent(mLogin, ContentActivity.class);
-                startActivity(i);
+                changeScreen();
             } else {
                 mPasswordView.setError(getString(R.string.error_invalid_password));
                 mPasswordView.requestFocus();

@@ -18,9 +18,8 @@
       "api_key": [],
       "services": {
         "analytics_service": {
-          "status": 2,
+          "status": 1,
           "analytics_property": {
-            "tracking_id": "UA-74479169-1"
           }
         },
         "cloud_messaging_service": {
