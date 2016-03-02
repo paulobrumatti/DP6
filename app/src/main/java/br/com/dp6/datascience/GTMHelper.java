@@ -11,7 +11,7 @@ import com.google.android.gms.tagmanager.TagManager;
 import java.util.concurrent.TimeUnit;
 
 public class GTMHelper {
-    public static final String CONTAINER_ID = "GTM-TMN6QJ";
+    public static final String CONTAINER_ID = "GTM-T97SDK";
     public static TagManager tagManager;
     public static DataLayer dataLayer;
 

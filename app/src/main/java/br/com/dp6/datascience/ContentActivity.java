@@ -16,6 +16,8 @@ import android.view.View;
 
 public class ContentActivity extends AppCompatActivity {
 
+    private static final String SCREEN_NAME = "Cronograma";
+
     FloatingActionButton fab;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -39,6 +41,8 @@ public class ContentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
+
+        GTMHelper.pushScreenview(SCREEN_NAME);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //toolbar.setNavigationIcon(android.R.color.transparent);
@@ -69,7 +73,9 @@ public class ContentActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                float size = mSectionsPagerAdapter.getPageTitle(position) == "Local" ? 1 : 0;
+                String title = String.valueOf(mSectionsPagerAdapter.getPageTitle(position));
+                float size = title.equals("Local") ? 1 : 0;
+                GTMHelper.pushScreenview(title);
                 fab.animate().scaleX(size).scaleY(size);
             }
         });
@@ -94,9 +100,7 @@ public class ContentActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            FragmentDict frag = fragmentList[position];
-            GTMHelper.pushScreenview(frag.title);
-            return frag.fragment;
+            return fragmentList[position].fragment;
         }
 
         @Override
