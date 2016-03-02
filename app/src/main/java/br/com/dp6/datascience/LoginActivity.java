@@ -35,6 +35,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private String loginOldValue;
+    private String passwordOldValue;
 
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -50,36 +52,36 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginView = (EditText) findViewById(R.id.login);
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
 
         mLoginView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     hideKeyboard(v);
-                    GTMHelper.pushEvent("Login", "Change", "Login Field");
+                    String currentValue = mLoginView.getText().toString();
+                    if (!currentValue.equals(loginOldValue)) {
+                        loginOldValue = currentValue;
+                        GTMHelper.pushEvent("Login", "Change", "Login Field");
+                    }
                 }
             }
         });
+
         mPasswordView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     hideKeyboard(v);
-                    GTMHelper.pushEvent("Login", "Change", "Password Field");
+                    String currentValue = mPasswordView.getText().toString();
+                    if (!currentValue.equals(passwordOldValue)) {
+                        passwordOldValue = currentValue;
+                        GTMHelper.pushEvent("Login", "Change", "Password Field");
+                    }
                 }
             }
         });
-
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -92,8 +94,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                    attemptLogin();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void changeScreen() {
@@ -219,7 +229,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            return mEmail.equals("Convidado") && mPassword.equals("DP6");
+            boolean success = mEmail.equals("Convidado") && mPassword.equals("DP6");
+            GTMHelper.pushEvent("Login", success ? "Success" : "Fail", "Login Attempt");
+            return success;
         }
 
         @Override
