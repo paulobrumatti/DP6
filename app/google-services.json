@@ -1,44 +1,42 @@
 {
   "project_info": {
-    "project_id": "essential-cairn-111223",
-    "project_number": "153908736915",
-    "name": "My Project"
+    "project_number": "277213628196",
+    "firebase_url": "https://fir-playground-4382e.firebaseio.com",
+    "project_id": "fir-playground-4382e",
+    "storage_bucket": "fir-playground-4382e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:153908736915:android:fef01d4248a4036e",
-        "client_id": "android:br.com.dp6.datascience",
-        "client_type": 1,
+        "mobilesdk_app_id": "1:277213628196:android:fef01d4248a4036e",
         "android_client_info": {
           "package_name": "br.com.dp6.datascience"
         }
       },
-      "oauth_client": [],
-      "api_key": [],
+      "oauth_client": [
+        {
+          "client_id": "277213628196-k5dnla9umu1d7qee39oiuravnttio0ri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUKDd7gm6eTCC-d1ZM9NflGju6UE6g3gU"
+        }
+      ],
       "services": {
         "analytics_service": {
-          "status": 1,
-          "analytics_property": {
-          }
-        },
-        "cloud_messaging_service": {
-          "status": 1,
-          "apns_config": []
+          "status": 1
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
         },
-        "google_signin_service": {
-          "status": 1
-        },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }

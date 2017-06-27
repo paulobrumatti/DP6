@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        GTMHelper.pushScreenview(SCREEN_NAME);
+        GTMHelper.pushScreenview(this, SCREEN_NAME);
 
         mLoginView = (EditText) findViewById(R.id.login);
         mPasswordView = (EditText) findViewById(R.id.password);

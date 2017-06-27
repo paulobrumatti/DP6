@@ -1,5 +1,6 @@
 package br.com.dp6.datascience;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
 
 public class ContentActivity extends AppCompatActivity {
 
@@ -42,7 +42,8 @@ public class ContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
 
-        GTMHelper.pushScreenview(SCREEN_NAME);
+        final Activity activity = this;
+        GTMHelper.pushScreenview(this, SCREEN_NAME);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //toolbar.setNavigationIcon(android.R.color.transparent);
@@ -75,7 +76,7 @@ public class ContentActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 String title = String.valueOf(mSectionsPagerAdapter.getPageTitle(position));
                 float size = title.equals("Local") ? 1 : 0;
-                GTMHelper.pushScreenview(title);
+                GTMHelper.pushScreenview(activity, title);
                 fab.animate().scaleX(size).scaleY(size);
             }
         });

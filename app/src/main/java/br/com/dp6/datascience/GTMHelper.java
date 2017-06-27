@@ -1,74 +1,42 @@
 package br.com.dp6.datascience;
 
+import android.app.Activity;
 import android.content.Context;
-
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.tagmanager.ContainerHolder;
-import com.google.android.gms.tagmanager.DataLayer;
-import com.google.android.gms.tagmanager.TagManager;
-
-import java.util.concurrent.TimeUnit;
+import android.os.Bundle;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class GTMHelper {
-    public static final String CONTAINER_ID = "GTM-T97SDK";
-    public static TagManager tagManager;
-    public static DataLayer dataLayer;
+    public static FirebaseAnalytics firebaseAnalytics;
 
-    public static void initiateTagManager(Context context, ResultCallback<ContainerHolder> resultCallback) {
-        tagManager = TagManager.getInstance(context);
-
-        // Modify the log level of the logger to print out not only
-        // warning and error messages, but also verbose, debug, info messages.
-        tagManager.setVerboseLoggingEnabled(true);
-        dataLayer = tagManager.getDataLayer();
-
-        PendingResult<ContainerHolder> pending =
-                tagManager.loadContainerPreferFresh(CONTAINER_ID,
-                        R.raw.gtm_holder);
-
-        // The onResult method will be called as soon as one of the following happens:
-        //     1. a saved container is loaded
-        //     2. if there is no saved container, a network container is loaded
-        //     3. the request times out. The example below uses a constant to manage the timeout period.
-        pending.setResultCallback(resultCallback, 2, TimeUnit.SECONDS);
+    public static void initiateFirebase(Context context) {
+        firebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        firebaseAnalytics.setAnalyticsCollectionEnabled(true);
     }
 
-    public static void push(String... data) {
-        dataLayer.push(DataLayer.mapOf(data));
-    }
+    public static void pushScreenview(Activity activity, String screenName) {
+        Bundle bundle = new Bundle();
+        bundle.putString("screenName", screenName);
+        firebaseAnalytics.logEvent("ScreenView", bundle);
+        firebaseAnalytics.setCurrentScreen(activity, screenName, screenName);
 
-    public static void pushScreenview(String screenName) {
-        dataLayer.pushEvent("openScreen", DataLayer.mapOf(
-                "screenName", screenName
-        ));
     }
 
     public static void pushEvent(String category, String action, String label) {
-        dataLayer.pushEvent("eventGA", DataLayer.mapOf(
-                "gaCategory", category,
-                "gaAction", action,
-                "gaLabel", label
-        ));
+        pushEvent(category, action, label, 0, false);
     }
 
     public static void pushEvent(String category, String action, String label, int value) {
-        dataLayer.pushEvent("eventGA", DataLayer.mapOf(
-                "gaCategory", category,
-                "gaAction", action,
-                "gaLabel", label,
-                "gaValue", String.valueOf(value)
-        ));
+        pushEvent(category, action, label, value, false);
     }
 
     public static void pushEvent(String category, String action, String label, int value, boolean noInteraction) {
-        dataLayer.pushEvent("eventGA", DataLayer.mapOf(
-                "gaCategory", category,
-                "gaAction", action,
-                "gaLabel", label,
-                "gaValue", String.valueOf(value),
-                "gaValue", noInteraction ? "true" : "false"
-        ));
+        Bundle bundle = new Bundle();
+        bundle.putString("eventCategory", category);
+        bundle.putString("eventAction", action);
+        bundle.putString("eventLabel", label);
+        bundle.putString("eventValue", String.valueOf(value));
+        bundle.putString("eventNoInteraction", noInteraction ? "true" : "false");
+        firebaseAnalytics.logEvent("Interaction", bundle);
     }
 }
 
