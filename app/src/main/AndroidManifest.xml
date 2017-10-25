@@ -58,6 +58,14 @@
         <service android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
             android:exported="false"/>
+
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+            <data android:host="yoursite.example.com" android:scheme="http"/>
+            <data android:host="yoursite.example.com" android:scheme="https"/>
+        </intent-filter>
     </application>
 
 </manifest>
