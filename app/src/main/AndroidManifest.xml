@@ -43,7 +43,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyASicPw6kpbhhozdOFrAvfSyrB6GhLsJSY" />
+            android:value="AIzaSyAIKJfr0b2BN8mdZy5tRGav27cRUVYrEWs" />
 
         <service android:name="com.google.android.gms.tagmanager.InstallReferrerService" />
 
