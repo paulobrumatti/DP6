@@ -9,9 +9,12 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,6 +26,19 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+
+import org.w3c.dom.Text;
+
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
@@ -38,6 +54,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private String loginOldValue;
     private String passwordOldValue;
 
+    private FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -48,13 +66,39 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        GTMHelper.pushEcommerce();
+
         GTMHelper.pushScreenview(this, SCREEN_NAME);
 
         mLoginView = (EditText) findViewById(R.id.login);
         mPasswordView = findViewById(R.id.password);
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        remoteConfig.setConfigSettingsAsync(new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(1).build());
+
+        HashMap<String, Object> defaults = new HashMap<>();
+        defaults.put("cor_botao_login", "#FFFFFF");
+        defaults.put("texto_botao_login", "entrar");
+        remoteConfig.setDefaultsAsync(defaults);
+
+        remoteConfig
+                .fetchAndActivate()
+                .addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Boolean> task) {
+                        if (task.isSuccessful()) {
+                            boolean updated = task.getResult();
+                            Log.d("RemoteConfig", "Config params updated: " + updated);
+                            Toast.makeText(LoginActivity.this, "Fetch and activate succeeded",
+                                    Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Fetch failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
         mLoginView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -83,6 +127,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             }
         });
+
+        Button botaoLogin = findViewById(R.id.email_sign_in_button);
+        botaoLogin.setBackgroundColor(Color.parseColor(remoteConfig.getString("cor_botao_login")));
+        botaoLogin.setText(remoteConfig.getString("texto_botao_login"));
 
         Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -218,13 +266,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected Boolean doInBackground(Void... params) {
             try {
                 // Simulate network access.
-                Thread.sleep(5000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 return false;
             }
 
-            boolean success = mEmail.equals("Convidado") && mPassword.equals("DP6");
-            GTMHelper.pushEvent("Login", success ? "Success" : "Fail", "Login Attempt");
+            Bundle bndl = new Bundle();
+            bndl.putString("noInteraction", "true");
+
+            boolean success = mEmail.equals("1234") && mPassword.equals("1234");
+            GTMHelper.pushEvent("Login", success ? "Success" : "Fail", "Login Attempt", bndl);
             return success;
         }
 

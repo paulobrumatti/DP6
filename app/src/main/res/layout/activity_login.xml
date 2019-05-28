@@ -13,8 +13,12 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
-        android:layout_height="fill_parent">
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="20dp"
+        android:paddingEnd="20dp">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -36,9 +40,7 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/login"
@@ -52,10 +54,9 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/password"
@@ -77,9 +78,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/action_login"
+                android:layout_marginBottom="16dp"
                 android:textStyle="bold" />
 
         </LinearLayout>

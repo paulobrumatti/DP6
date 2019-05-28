@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#1e88e5</color>
     <color name="colorPrimaryDark">#1976d2</color>
-    <color name="colorAccent">#cddc39</color>
+    <color name="colorAccent">#CDDC39</color>
     <color name="colorPrimaryText">#202020</color>
     <color name="colorSecondaryText">#737373</color>
     <color name="colorBackground">#FAFAFA</color>

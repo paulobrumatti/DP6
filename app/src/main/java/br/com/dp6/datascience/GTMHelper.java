@@ -5,73 +5,67 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.analytics.FirebaseAnalytics.Event;
-import com.google.firebase.analytics.FirebaseAnalytics.Param;
-
-import java.util.ArrayList;
 
 class GTMHelper {
+
     private static FirebaseAnalytics firebaseAnalytics;
+
+    private static String screenName = "(entrance)";
+    private static String previousScreenName = "(entrance)";
+    private static final String EVENT_NAME_SCREENVIEW = "ScreenView";
+    private static final String EVENT_NAME_INTERACTION = "Interaction";
 
     static void initiateFirebase(Context context) {
         firebaseAnalytics = FirebaseAnalytics.getInstance(context);
         firebaseAnalytics.setAnalyticsCollectionEnabled(true);
     }
 
-    static void pushScreenview(Activity activity, String screenName) {
-        Bundle bundle = new Bundle();
+    public static void logEvent(String eventName, Bundle bundle) {
+        bundle.putString("previousScreenName", previousScreenName);
         bundle.putString("screenName", screenName);
-        firebaseAnalytics.logEvent("ScreenView", bundle);
+        firebaseAnalytics.logEvent(eventName, bundle);
+    }
+
+    public static void pushScreenview(Activity activity, String currentScreenName) {
+        pushScreenview(activity, EVENT_NAME_SCREENVIEW, currentScreenName);
+    }
+
+    public static void pushScreenview(Activity activity, String currentScreenName, Bundle bundle) {
+        pushScreenview(activity, EVENT_NAME_SCREENVIEW, currentScreenName, bundle);
+    }
+
+    public static void pushScreenview(Activity activity,  String eventName, String currentScreenName) {
+        pushScreenview(activity, eventName, currentScreenName, new Bundle());
+    }
+
+    public static void pushScreenview(Activity activity,  String eventName, String currentScreenName, Bundle bundle) {
+        previousScreenName = screenName;
+        screenName = currentScreenName;
+        firebaseAnalytics.logEvent(eventName, bundle);
         firebaseAnalytics.setCurrentScreen(activity, screenName, screenName);
-
     }
 
-    static void pushEvent(String category, String action, String label) {
-        pushEvent(category, action, label, 0, false);
+    public static void pushEvent(String category, String action, String label) {
+        pushEvent(EVENT_NAME_INTERACTION, category, action, label, new Bundle());
     }
 
-    static void pushEvent(String category, String action, String label, int value) {
-        pushEvent(category, action, label, value, false);
+    public static void pushEvent(String category, String action, String label, Bundle bundle) {
+        pushEvent(EVENT_NAME_INTERACTION, category, action, label, bundle);
     }
 
-    static void pushEvent(String category, String action, String label, int value, boolean noInteraction) {
-        Bundle bundle = new Bundle();
+    public static void pushEvent(String eventName, String category, String action, String label) {
+        pushEvent(eventName, category, action, label, new Bundle());
+    }
+
+    public static void pushEvent(String eventName, String category, String action, String label, Bundle bundle) {
         bundle.putString("eventCategory", category);
         bundle.putString("eventAction", action);
         bundle.putString("eventLabel", label);
-        bundle.putString("eventValue", String.valueOf(value));
-        bundle.putString("eventNoInteraction", noInteraction ? "true" : "false");
-        firebaseAnalytics.logEvent("Interaction", bundle);
+        firebaseAnalytics.logEvent(eventName, bundle);
     }
 
-    static void pushEcommerce() {
-        Bundle product1 = new Bundle();
-        product1.putString(Param.ITEM_ID, "sku1234"); // ITEM_ID or ITEM_NAME is required
-        product1.putString(Param.ITEM_NAME, "Donut Friday Scented T-Shirt");
-        product1.putString(Param.ITEM_CATEGORY, "Apparel/Men/Shirts");
-        product1.putString(Param.ITEM_VARIANT, "Blue");
-        product1.putString(Param.ITEM_BRAND, "Google");
-        product1.putDouble(Param.PRICE, 29.99);
-        product1.putString(Param.CURRENCY, "USD"); // Item-level currency unused today
-        product1.putString("dimension1", "USD"); // Item-level currency unused today
-        product1.putDouble("metric1", 1.0); // Item-level currency unused today
-        product1.putLong(Param.QUANTITY, 1);
-
-        ArrayList items = new ArrayList();
-        items.add(product1);
-
-        Bundle ecommerceBundle = new Bundle();
-        ecommerceBundle.putParcelableArrayList("items", items);
-
-        ecommerceBundle.putString(Param.TRANSACTION_ID, "T12345");
-        ecommerceBundle.putString(Param.AFFILIATION, "Google Store - Online");
-        ecommerceBundle.putDouble(Param.VALUE, 37.39); // Revenue
-        ecommerceBundle.putDouble(Param.TAX, 2.85);
-        ecommerceBundle.putDouble(Param.SHIPPING, 5.34);
-        ecommerceBundle.putString(Param.CURRENCY, "USD");
-        ecommerceBundle.putString(Param.COUPON, "SUMMER2017");
-
-        firebaseAnalytics.logEvent(Event.ECOMMERCE_PURCHASE, ecommerceBundle);
+    public static void setUserProperty(String propertyName, String propertyValue){
+        firebaseAnalytics.setUserProperty(propertyName,propertyValue);
     }
 }
 
