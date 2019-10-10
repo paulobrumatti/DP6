@@ -3,6 +3,7 @@ package br.com.dp6.datascience;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
@@ -41,8 +42,10 @@ class GTMHelper {
     public static void pushScreenview(Activity activity,  String eventName, String currentScreenName, Bundle bundle) {
         previousScreenName = screenName;
         screenName = currentScreenName;
+        Log.d("pushScreenview", eventName);
         firebaseAnalytics.logEvent(eventName, bundle);
-        firebaseAnalytics.setCurrentScreen(activity, screenName, screenName);
+        Log.d("pushScreenview", screenName);
+        firebaseAnalytics.setCurrentScreen(null, screenName, screenName);
     }
 
     public static void pushEvent(String category, String action, String label) {

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "190640408350-ig6srol6eja725li7r068m0tjggofi3p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.dp6.datascience",
+            "certificate_hash": "ae8e1be2ebf9b68b531f41267c10b8a5c5a6e6c9"
+          }
+        },
+        {
           "client_id": "190640408350-be665m2bap89gaqeu29tobm42u33oshj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -44,7 +52,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "190640408350-htoqqu4v89pirkjeqe77gcfo4556tdrs.apps.googleusercontent.com",
+              "client_id": "190640408350-a74vu0fv7v8ua7i0uaclr3ap5e73il7u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

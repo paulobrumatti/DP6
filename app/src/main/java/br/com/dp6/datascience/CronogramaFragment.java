@@ -1,7 +1,7 @@
 package br.com.dp6.datascience;
 
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import androidx.fragment.app.ListFragment;
 import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
