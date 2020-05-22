@@ -26,7 +26,7 @@ public class CronogramaFragment extends ListFragment {
     }
 
     // TODO: Rename and change types of parameters
-    public static CronogramaFragment newInstance() {
+    static CronogramaFragment newInstance() {
         return new CronogramaFragment();
     }
 

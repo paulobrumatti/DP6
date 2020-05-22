@@ -18,7 +18,7 @@ public class PalestrantesFragment extends Fragment {
     public PalestrantesFragment() {
     }
 
-    public static PalestrantesFragment newInstance() {
+    static PalestrantesFragment newInstance() {
         return new PalestrantesFragment();
     }
 
@@ -38,7 +38,7 @@ public class PalestrantesFragment extends Fragment {
         return v;
     }
 
-    public void initializeRecycler(View v) {
+    private void initializeRecycler(View v) {
         rv = (RecyclerView) v.findViewById(R.id.palestrantesRecyclerView);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this.getContext()));

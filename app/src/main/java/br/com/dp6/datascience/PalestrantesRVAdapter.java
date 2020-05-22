@@ -1,5 +1,6 @@
 package br.com.dp6.datascience;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,17 +12,18 @@ import java.util.List;
 
 public class PalestrantesRVAdapter extends RecyclerView.Adapter<PalestrantesRVAdapter.PersonViewHolder> {
 
-    List<Palestrante> persons;
+    private List<Palestrante> persons;
 
     PalestrantesRVAdapter(List<Palestrante> persons) {
         this.persons = persons;
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 
+    @NonNull
     @Override
     public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.custom_cards_palestrantes, viewGroup, false);
@@ -41,7 +43,7 @@ public class PalestrantesRVAdapter extends RecyclerView.Adapter<PalestrantesRVAd
         return persons.size();
     }
 
-    public static class PersonViewHolder extends RecyclerView.ViewHolder {
+    static class PersonViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView personName;
         TextView personBio;

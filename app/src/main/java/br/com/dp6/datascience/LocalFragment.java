@@ -16,16 +16,18 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Objects;
+
 public class LocalFragment extends Fragment implements OnMapReadyCallback {
 
-    MapView mMapView;
+    private MapView mMapView;
     private GoogleMap googleMap;
-    private CameraPosition cameraPosition;
+
     public LocalFragment() {
 
     }
 
-    public static LocalFragment newInstance() {
+    static LocalFragment newInstance() {
         return new LocalFragment();
     }
 
@@ -40,7 +42,7 @@ public class LocalFragment extends Fragment implements OnMapReadyCallback {
         mMapView.onResume();// needed to get the map to display immediately
         mMapView.getMapAsync(this);
         try {
-            MapsInitializer.initialize(getActivity().getApplicationContext());
+            MapsInitializer.initialize(Objects.requireNonNull(getActivity()).getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,7 +57,7 @@ public class LocalFragment extends Fragment implements OnMapReadyCallback {
         setUpMap();
     }
 
-    public void setUpMap() {
+    private void setUpMap() {
         // latitude and longitude
         double latitude = -23.5653559;
         double longitude = -46.6696576;
@@ -70,7 +72,7 @@ public class LocalFragment extends Fragment implements OnMapReadyCallback {
 
         // adding marker
         googleMap.addMarker(marker);
-        cameraPosition = new CameraPosition.Builder()
+        CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(latitude, longitude)).zoom(15).build();
 
         googleMap.animateCamera(CameraUpdateFactory

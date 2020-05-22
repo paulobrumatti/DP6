@@ -11,7 +11,7 @@ public class SobreFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static SobreFragment newInstance() {
+    static SobreFragment newInstance() {
         return new SobreFragment();
     }
 

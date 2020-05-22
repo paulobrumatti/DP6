@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -119,18 +120,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button botaoLogin = findViewById(R.id.email_sign_in_button);
-        botaoLogin.setBackgroundColor(Color.parseColor(remoteConfig.getString("cor_botao_login")));
-        botaoLogin.setText(remoteConfig.getString("texto_botao_login"));
-
         Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setBackgroundColor(Color.parseColor(remoteConfig.getString("cor_botao_login")));
+        mEmailSignInButton.setText(remoteConfig.getString("texto_botao_login"));
+
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 GTMHelper.pushEvent("Login", "Click", "Sign In");
                 Log.i("GTM", "Evento");
                 attemptLogin();
-                //changeScreen();
             }
         });
 
@@ -262,11 +261,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            Bundle bndl = new Bundle();
-            bndl.putString("noInteraction", "true");
+            Bundle bundle = new Bundle();
+            bundle.putString("noInteraction", "true");
 
             boolean success = mEmail.equals("1234") && mPassword.equals("1234");
-            GTMHelper.pushEvent("Login", success ? "Success" : "Fail", "Login Attempt", bndl);
+            GTMHelper.pushEvent("Login", success ? "Success" : "Fail", "Login Attempt", bundle);
             return success;
         }
 

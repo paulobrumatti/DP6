@@ -43,7 +43,7 @@ class GTMHelper {
         previousScreenName = screenName;
         screenName = currentScreenName;
         Log.d("pushScreenview", eventName);
-        firebaseAnalytics.logEvent(eventName, bundle);
+        logEvent(eventName, bundle);
         Log.d("pushScreenview", screenName);
         firebaseAnalytics.setCurrentScreen(null, screenName, screenName);
     }
