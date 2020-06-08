@@ -64,7 +64,7 @@ class GTMHelper {
         bundle.putString("eventCategory", category);
         bundle.putString("eventAction", action);
         bundle.putString("eventLabel", label);
-        firebaseAnalytics.logEvent(eventName, bundle);
+        logEvent(eventName, bundle);
     }
 
     public static void setUserProperty(String propertyName, String propertyValue){
