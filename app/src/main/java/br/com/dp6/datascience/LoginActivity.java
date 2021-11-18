@@ -17,14 +17,13 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
@@ -45,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private String loginOldValue;
     private String passwordOldValue;
 
-    private FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+    private final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
 
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -65,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView = findViewById(R.id.password);
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
 
         remoteConfig.setConfigSettingsAsync(new FirebaseRemoteConfigSettings.Builder()
                 .setMinimumFetchIntervalInSeconds(1).build());
@@ -72,76 +72,73 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         HashMap<String, Object> defaults = new HashMap<>();
         defaults.put("cor_botao_login", "#FFFFFF");
         defaults.put("texto_botao_login", "entrar");
+        defaults.put("testeab_cartao_vitrine", "esconder");
         remoteConfig.setDefaultsAsync(defaults);
 
-        /*remoteConfig
+        remoteConfig
                 .fetchAndActivate()
-                .addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Boolean> task) {
-                        if (task.isSuccessful()) {
-                            boolean updated = task.getResult();
-                            Log.d("RemoteConfig", "Config params updated: " + updated);
-                            Toast.makeText(LoginActivity.this, "Fetch and activate succeeded",
-                                    Toast.LENGTH_SHORT).show();
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        boolean updated = task.getResult();
+                        Log.d("RemoteConfig", "Config params updated: " + updated);
+                        Toast.makeText(LoginActivity.this, "Fetch and activate succeeded: " + updated,
+                                Toast.LENGTH_SHORT).show();
 
+                        String cor_botao = remoteConfig.getString("cor_botao_login");
+                        mEmailSignInButton.setBackgroundColor(Color.parseColor(cor_botao));
+                        mEmailSignInButton.setText(remoteConfig.getString("texto_botao_login"));
+                        GTMHelper.pushEvent("teste_ab", "teste_cor_botao", cor_botao);
+
+                        /*
+                        String testeab_cartao_vitrine = remoteConfig.getString("testeab_cartao_vitrine")
+                        if (testeab_cartao_vitrine.equals("exibir")) {
+                            // fazer o cartão aparecer
                         } else {
-                            Toast.makeText(LoginActivity.this, "Fetch failed",
-                                    Toast.LENGTH_SHORT).show();
+                            // fazer o cartão sumir
                         }
+                        */
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Fetch failed",
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
-        */
-        mLoginView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                    String currentValue = mLoginView.getText().toString();
-                    if (!currentValue.equals(loginOldValue)) {
-                        loginOldValue = currentValue;
-                        GTMHelper.pushEvent("Login", "Change", "Login Field");
-                    }
+
+        mLoginView.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                hideKeyboard(v);
+                String currentValue = mLoginView.getText().toString();
+                if (!currentValue.equals(loginOldValue)) {
+                    loginOldValue = currentValue;
+                    GTMHelper.pushEvent("Login", "Change", "Login Field");
                 }
             }
         });
 
-        mPasswordView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                    String currentValue = mPasswordView.getText().toString();
-                    if (!currentValue.equals(passwordOldValue)) {
-                        passwordOldValue = currentValue;
-                        GTMHelper.pushEvent("Login", "Change", "Password Field");
-                    }
+        mPasswordView.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                hideKeyboard(v);
+                String currentValue = mPasswordView.getText().toString();
+                if (!currentValue.equals(passwordOldValue)) {
+                    passwordOldValue = currentValue;
+                    GTMHelper.pushEvent("Login", "Change", "Password Field");
                 }
             }
         });
 
-        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setBackgroundColor(Color.parseColor(remoteConfig.getString("cor_botao_login")));
-        mEmailSignInButton.setText(remoteConfig.getString("texto_botao_login"));
 
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GTMHelper.pushEvent("Login", "Click", "Sign In");
-                Log.i("GTM", "Evento");
+
+        mEmailSignInButton.setOnClickListener(view -> {
+            GTMHelper.pushEvent("Login", "Click", "Sign In");
+            Log.i("GTM", "Evento");
+            attemptLogin();
+        });
+
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == R.id.login || id == EditorInfo.IME_NULL) {
                 attemptLogin();
+                return true;
             }
-        });
-
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
+            return false;
         });
     }
 
