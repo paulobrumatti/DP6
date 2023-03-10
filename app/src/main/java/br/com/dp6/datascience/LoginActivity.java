@@ -15,6 +15,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -25,9 +27,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
@@ -59,6 +63,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
         GTMHelper.pushScreenview(this, SCREEN_NAME);
+
+        Bundle itemJeggings = new Bundle();
+        itemJeggings.putString(FirebaseAnalytics.Param.ITEM_ID, "SKU_123");
+        itemJeggings.putString(FirebaseAnalytics.Param.ITEM_NAME, "jeggings");
+        itemJeggings.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "pants");
+        itemJeggings.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "black");
+        itemJeggings.putString(FirebaseAnalytics.Param.ITEM_BRAND, "Google");
+        itemJeggings.putDouble(FirebaseAnalytics.Param.PRICE, 9.99);
+
+        Bundle itemJeggingsCart = new Bundle(itemJeggings);
+        itemJeggingsCart.putLong(FirebaseAnalytics.Param.QUANTITY, 2);
+
+        Bundle purchaseParams = new Bundle();
+        purchaseParams.putString(FirebaseAnalytics.Param.TRANSACTION_ID, "T12345");
+        purchaseParams.putString(FirebaseAnalytics.Param.AFFILIATION, "Google Store");
+        purchaseParams.putString(FirebaseAnalytics.Param.CURRENCY, "USD");
+        purchaseParams.putDouble(FirebaseAnalytics.Param.VALUE, 14.98);
+        purchaseParams.putDouble(FirebaseAnalytics.Param.TAX, 2.58);
+        purchaseParams.putDouble(FirebaseAnalytics.Param.SHIPPING, 5.34);
+        purchaseParams.putString(FirebaseAnalytics.Param.COUPON, "SUMMER_FUN");
+        ArrayList items = new ArrayList();
+        items.add(itemJeggingsCart);
+        purchaseParams.putParcelableArrayList(FirebaseAnalytics.Param.ITEMS, items);
+        GTMHelper.logEvent(FirebaseAnalytics.Event.PURCHASE, purchaseParams);
 
         mLoginView = (EditText) findViewById(R.id.login);
         mPasswordView = findViewById(R.id.password);
@@ -194,7 +222,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Shows the progress UI and hides the login form.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in

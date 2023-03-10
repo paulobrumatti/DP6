@@ -4,6 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DP6.iml" filepath="$PROJECT_DIR$/DP6.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DP6.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DP6.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DP6.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DP6.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DP6.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DP6.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DP6.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DP6.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DP6.main.iml" filepath="$PROJECT_DIR$/.idea/modules/DP6.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DP6.test.iml" filepath="$PROJECT_DIR$/.idea/modules/DP6.test.iml" />
     </modules>
   </component>
 </project>

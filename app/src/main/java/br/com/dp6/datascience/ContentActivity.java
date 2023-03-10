@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -15,7 +17,6 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.view.View;
 
 import java.util.Objects;
 
@@ -33,9 +34,6 @@ public class ContentActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    public void OnFragmentInteractionListener () {
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,7 @@ public class ContentActivity extends AppCompatActivity {
         final Activity activity = this;
         GTMHelper.pushScreenview(this, SCREEN_NAME);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         //toolbar.setNavigationIcon(android.R.color.transparent);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
@@ -54,21 +52,18 @@ public class ContentActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri uri = Uri.parse("https://www.google.com.br/maps/place/A+Figueira+Rubaiyat/@-23.5653559,-46.6718463,17z/data=!3m1!4b1!4m2!3m1!1s0x94ce583397637bdb:0xcc15b6cb26a775b5?hl=pt-BR"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
+        fab.setOnClickListener(view -> {
+            Uri uri = Uri.parse("https://www.google.com.br/maps/place/A+Figueira+Rubaiyat/@-23.5653559,-46.6718463,17z/data=!3m1!4b1!4m2!3m1!1s0x94ce583397637bdb:0xcc15b6cb26a775b5?hl=pt-BR"); // missing 'http://' will cause crashed
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         });
 
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -88,9 +83,9 @@ public class ContentActivity extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public static class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private FragmentDict[] fragmentList = new FragmentDict[]{
+        private final FragmentDict[] fragmentList = new FragmentDict[]{
                 new FragmentDict("Cronograma", CronogramaFragment.newInstance()),
                 new FragmentDict("Local", LocalFragment.newInstance()),
                 new FragmentDict("Palestrantes", PalestrantesFragment.newInstance()),
@@ -101,6 +96,7 @@ public class ContentActivity extends AppCompatActivity {
             super(fm);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             return fragmentList[position].fragment;
@@ -116,7 +112,7 @@ public class ContentActivity extends AppCompatActivity {
             return fragmentList[position].title;
         }
 
-        private class FragmentDict {
+        private static class FragmentDict {
             public String title;
             public Fragment fragment;
 

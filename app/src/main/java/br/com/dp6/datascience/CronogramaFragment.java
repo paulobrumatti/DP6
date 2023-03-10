@@ -16,8 +16,6 @@ import java.util.Map;
  * interface.
  */
 public class CronogramaFragment extends ListFragment {
-    private OnFragmentInteractionListener mListener;
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -80,7 +78,7 @@ public class CronogramaFragment extends ListFragment {
      * to the activity and potentially other fragments contained in that
      * activity.
      * See the Android Training lesson Communicating with Other Fragments for more information.
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * "<a href="http://developer.android.com/training/basics/fragments/communicating.html">...</a>"
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
