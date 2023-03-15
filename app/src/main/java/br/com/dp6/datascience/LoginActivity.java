@@ -2,7 +2,7 @@ package br.com.dp6.datascience;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
@@ -11,12 +11,10 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -72,8 +70,82 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         itemJeggings.putString(FirebaseAnalytics.Param.ITEM_BRAND, "Google");
         itemJeggings.putDouble(FirebaseAnalytics.Param.PRICE, 9.99);
 
+        Bundle itemBoots = new Bundle();
+        itemBoots.putString(FirebaseAnalytics.Param.ITEM_ID, "SKU_456");
+        itemBoots.putString(FirebaseAnalytics.Param.ITEM_NAME, "boots");
+        itemBoots.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "shoes");
+        itemBoots.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "brown");
+        itemBoots.putString(FirebaseAnalytics.Param.ITEM_BRAND, "Google");
+        itemBoots.putDouble(FirebaseAnalytics.Param.PRICE, 24.99);
+
+        Bundle itemSocks = new Bundle();
+        itemSocks.putString(FirebaseAnalytics.Param.ITEM_ID, "SKU_789");
+        itemSocks.putString(FirebaseAnalytics.Param.ITEM_NAME, "ankle_socks");
+        itemSocks.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "socks");
+        itemSocks.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "red");
+        itemSocks.putString(FirebaseAnalytics.Param.ITEM_BRAND, "Google");
+        itemSocks.putDouble(FirebaseAnalytics.Param.PRICE, 5.99);
+
         Bundle itemJeggingsCart = new Bundle(itemJeggings);
         itemJeggingsCart.putLong(FirebaseAnalytics.Param.QUANTITY, 2);
+
+        Bundle itemJeggingsWithIndex = new Bundle(itemJeggings);
+        itemJeggingsWithIndex.putLong(FirebaseAnalytics.Param.INDEX, 1);
+
+        Bundle itemBootsWithIndex = new Bundle(itemBoots);
+        itemBootsWithIndex.putLong(FirebaseAnalytics.Param.INDEX, 2);
+
+        Bundle itemSocksWithIndex = new Bundle(itemSocks);
+        itemSocksWithIndex.putLong(FirebaseAnalytics.Param.INDEX, 3);
+
+        Bundle viewItemListParams = new Bundle();
+        viewItemListParams.putString(FirebaseAnalytics.Param.ITEM_LIST_ID, "L001");
+        viewItemListParams.putString(FirebaseAnalytics.Param.ITEM_LIST_NAME, "Related products");
+        ArrayList<Bundle> itemsWithIndex = new ArrayList<>();
+        itemsWithIndex.add(itemJeggingsWithIndex);
+        itemsWithIndex.add(itemBootsWithIndex);
+        itemsWithIndex.add(itemSocksWithIndex);
+        viewItemListParams.putParcelableArrayList(FirebaseAnalytics.Param.ITEMS, itemsWithIndex);
+        GTMHelper.logEvent(FirebaseAnalytics.Event.VIEW_ITEM_LIST, viewItemListParams);
+
+        Bundle selectItemParams = new Bundle();
+        selectItemParams.putString(FirebaseAnalytics.Param.ITEM_LIST_ID, "L001");
+        selectItemParams.putString(FirebaseAnalytics.Param.ITEM_LIST_NAME, "Related products");
+        ArrayList<Bundle> selectItemsWithIndex = new ArrayList<>();
+        selectItemsWithIndex.add(itemJeggingsWithIndex);
+        selectItemParams.putParcelableArrayList(FirebaseAnalytics.Param.ITEMS, selectItemsWithIndex);
+        GTMHelper.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, selectItemParams);
+
+        Bundle viewItemParams = new Bundle();
+        viewItemParams.putString(FirebaseAnalytics.Param.CURRENCY, "USD");
+        viewItemParams.putDouble(FirebaseAnalytics.Param.VALUE, 9.99);
+        ArrayList<Bundle> viewItemList = new ArrayList<>();
+        viewItemList.add(itemJeggingsWithIndex);
+        viewItemParams.putParcelableArrayList(FirebaseAnalytics.Param.ITEMS, viewItemList);
+        GTMHelper.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, viewItemParams);
+
+        Bundle itemJeggingsWishlist = new Bundle(itemJeggings);
+        itemJeggingsWishlist.putLong(FirebaseAnalytics.Param.QUANTITY, 2);
+
+        Bundle addToWishlistParams = new Bundle();
+        addToWishlistParams.putString(FirebaseAnalytics.Param.CURRENCY, "USD");
+        addToWishlistParams.putDouble(FirebaseAnalytics.Param.VALUE, 2 * 9.99);
+        ArrayList<Bundle> addItemList = new ArrayList<>();
+        addItemList.add(itemJeggingsWithIndex);
+        addToWishlistParams.putParcelableArrayList(FirebaseAnalytics.Param.ITEMS,addItemList);
+        GTMHelper.logEvent(FirebaseAnalytics.Event.ADD_TO_CART, addToWishlistParams);
+
+        Bundle beginCheckoutParams = new Bundle();
+        beginCheckoutParams.putString(FirebaseAnalytics.Param.CURRENCY, "USD");
+        beginCheckoutParams.putDouble(FirebaseAnalytics.Param.VALUE, 14.98);
+        beginCheckoutParams.putString(FirebaseAnalytics.Param.COUPON, "SUMMER_FUN");
+        ArrayList<Bundle> checkoutItemList = new ArrayList<>();
+        checkoutItemList.add(itemJeggingsWithIndex);
+        beginCheckoutParams.putParcelableArrayList(FirebaseAnalytics.Param.ITEMS, checkoutItemList);
+        GTMHelper.logEvent(FirebaseAnalytics.Event.BEGIN_CHECKOUT, beginCheckoutParams);
+
+        ArrayList<Bundle> items = new ArrayList<>();
+        items.add(itemJeggingsCart);
 
         Bundle purchaseParams = new Bundle();
         purchaseParams.putString(FirebaseAnalytics.Param.TRANSACTION_ID, "T12345");
@@ -83,12 +155,76 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         purchaseParams.putDouble(FirebaseAnalytics.Param.TAX, 2.58);
         purchaseParams.putDouble(FirebaseAnalytics.Param.SHIPPING, 5.34);
         purchaseParams.putString(FirebaseAnalytics.Param.COUPON, "SUMMER_FUN");
-        ArrayList items = new ArrayList();
-        items.add(itemJeggingsCart);
         purchaseParams.putParcelableArrayList(FirebaseAnalytics.Param.ITEMS, items);
         GTMHelper.logEvent(FirebaseAnalytics.Event.PURCHASE, purchaseParams);
 
-        mLoginView = (EditText) findViewById(R.id.login);
+        // Define product with relevant parameters
+
+        Bundle product1 = new Bundle();
+        product1.putString( FirebaseAnalytics.Param.ITEM_ID, "sku1234"); // ITEM_ID or ITEM_NAME is required
+        product1.putString( FirebaseAnalytics.Param.ITEM_NAME, "Donut Friday Scented T-Shirt");
+        product1.putString( FirebaseAnalytics.Param.ITEM_CATEGORY, "Apparel/Men/Shirts");
+        product1.putString( FirebaseAnalytics.Param.ITEM_VARIANT, "Blue");
+        product1.putString( FirebaseAnalytics.Param.ITEM_BRAND, "Google");
+        product1.putDouble( FirebaseAnalytics.Param.PRICE, 29.99 );
+        product1.putString( FirebaseAnalytics.Param.CURRENCY, "USD" ); // Item-level currency unused today
+        product1.putLong( FirebaseAnalytics.Param.INDEX, 1 ); // Position of the item in the list
+
+// Prepare ecommerce bundle
+
+        Bundle ecommerceBundle = new Bundle();
+        ecommerceBundle.putBundle( "items", product1 );
+
+// Log select_content event with ecommerce bundle
+
+        GTMHelper.logEvent( FirebaseAnalytics.Event.SELECT_CONTENT, ecommerceBundle );
+
+        // Define product with relevant parameters
+
+        Bundle product1Purchase = new Bundle();
+        product1Purchase.putString( FirebaseAnalytics.Param.ITEM_ID, "sku1234"); // ITEM_ID or ITEM_NAME is required
+        product1Purchase.putString( FirebaseAnalytics.Param.ITEM_NAME, "Donut Friday Scented T-Shirt");
+        product1Purchase.putString( FirebaseAnalytics.Param.ITEM_CATEGORY, "Apparel/Men/Shirts");
+        product1Purchase.putString( FirebaseAnalytics.Param.ITEM_VARIANT, "Blue");
+        product1Purchase.putString( FirebaseAnalytics.Param.ITEM_BRAND, "Google");
+        product1Purchase.putDouble( FirebaseAnalytics.Param.PRICE, 29.99 );
+        product1Purchase.putString( FirebaseAnalytics.Param.CURRENCY, "USD" ); // Item-level currency unused today
+        product1Purchase.putLong( FirebaseAnalytics.Param.QUANTITY, 1 );
+
+        Bundle product2Purchase = new Bundle();
+        product2Purchase.putString( FirebaseAnalytics.Param.ITEM_ID, "sku5678");
+        product2Purchase.putString( FirebaseAnalytics.Param.ITEM_NAME, "Android Workout Capris");
+        product2Purchase.putString( FirebaseAnalytics.Param.ITEM_CATEGORY, "Apparel/Women/Pants");
+        product2Purchase.putString( FirebaseAnalytics.Param.ITEM_VARIANT, "Black");
+        product2Purchase.putString( FirebaseAnalytics.Param.ITEM_BRAND, "Google");
+        product2Purchase.putDouble( FirebaseAnalytics.Param.PRICE, 39.99 );
+        product2Purchase.putString( FirebaseAnalytics.Param.CURRENCY, "USD" ); // Item-level currency unused today
+        product2Purchase.putLong( FirebaseAnalytics.Param.QUANTITY, 1 );
+
+// Prepare ecommerce bundle
+
+        ArrayList<Bundle> itemsPurchase = new ArrayList<>();
+        itemsPurchase.add(product1Purchase);
+        itemsPurchase.add(product2Purchase);
+
+        Bundle ecommerceBundlePurchase = new Bundle();
+        ecommerceBundlePurchase.putParcelableArrayList( "items", itemsPurchase );
+
+// Set relevant transaction-level parameters
+
+        ecommerceBundlePurchase.putString( FirebaseAnalytics.Param.TRANSACTION_ID, "T12345" );
+        ecommerceBundlePurchase.putString( FirebaseAnalytics.Param.AFFILIATION, "Google Store - Online" );
+        ecommerceBundlePurchase.putDouble( FirebaseAnalytics.Param.VALUE, 37.39 );    // Revenue
+        ecommerceBundlePurchase.putDouble( FirebaseAnalytics.Param.TAX, 2.85 );
+        ecommerceBundlePurchase.putDouble( FirebaseAnalytics.Param.SHIPPING, 5.34 );
+        ecommerceBundlePurchase.putString( FirebaseAnalytics.Param.CURRENCY, "USD" );
+        ecommerceBundlePurchase.putString( FirebaseAnalytics.Param.COUPON, "SUMMER2017" );
+
+// Log ecommerce_purchase event with ecommerce bundle
+        // nao existe mais o static  FirebaseAnalytics.Event.ECOMMERCE_PURCHASE
+        GTMHelper.logEvent("ecommerce_purchase", ecommerceBundle );
+
+        mLoginView = findViewById(R.id.login);
         mPasswordView = findViewById(R.id.password);
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -266,6 +402,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
+    @SuppressLint("StaticFieldLeak")
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
