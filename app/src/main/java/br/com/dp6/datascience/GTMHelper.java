@@ -5,7 +5,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
+
+import java.util.logging.Level;
 
 class GTMHelper {
 
@@ -13,26 +16,43 @@ class GTMHelper {
 
     private static String screenName = "(entrance)";
     private static String previousScreenName = "(entrance)";
-    private static final String EVENT_NAME_SCREENVIEW = "ScreenView";
-    private static final String EVENT_NAME_INTERACTION = "Interaction";
+    private static final String EVENT_NAME_INTERACTION = "interaction";
+    private static String user_pseudo_id = "";
+    private static String session_id = "";
 
     static void initiateFirebase(Context context) {
         firebaseAnalytics = FirebaseAnalytics.getInstance(context);
         firebaseAnalytics.setAnalyticsCollectionEnabled(true);
+        firebaseAnalytics.getAppInstanceId().addOnSuccessListener(instanceId -> user_pseudo_id = instanceId);
+        firebaseAnalytics.getAppInstanceId().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                user_pseudo_id = task.getResult();
+            } else {
+                Log.e("user_pseudo_id", "deu ruim", task.getException());
+            }
+        });
+        firebaseAnalytics.getSessionId().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                session_id = task.getResult().toString();
+            } else {
+                Log.e("user_pseudo_id", "deu ruim", task.getException());
+            }
+        });
     }
 
     public static void logEvent(String eventName, Bundle bundle) {
-        bundle.putString("previousScreenName", previousScreenName);
-        bundle.putString("screenName", screenName);
+        bundle.putString("previous_screen_name", previousScreenName);
+        bundle.putString("screen_name", screenName);
+        bundle.putString("session_id", session_id);
         firebaseAnalytics.logEvent(eventName, bundle);
     }
 
     public static void pushScreenview(Activity activity, String currentScreenName) {
-        pushScreenview(activity, EVENT_NAME_SCREENVIEW, currentScreenName);
+        pushScreenview(activity, FirebaseAnalytics.Event.SCREEN_VIEW, currentScreenName);
     }
 
     public static void pushScreenview(Activity activity, String currentScreenName, Bundle bundle) {
-        pushScreenview(activity, EVENT_NAME_SCREENVIEW, currentScreenName, bundle);
+        pushScreenview(activity, FirebaseAnalytics.Event.SCREEN_VIEW, currentScreenName, bundle);
     }
 
     public static void pushScreenview(Activity activity,  String eventName, String currentScreenName) {
@@ -44,8 +64,6 @@ class GTMHelper {
         screenName = currentScreenName;
         Log.d("pushScreenview", eventName);
         logEvent(eventName, bundle);
-        Log.d("pushScreenview", screenName);
-        firebaseAnalytics.setCurrentScreen(null, screenName, screenName);
     }
 
     public static void pushEvent(String category, String action, String label) {
@@ -61,14 +79,25 @@ class GTMHelper {
     }
 
     public static void pushEvent(String eventName, String category, String action, String label, Bundle bundle) {
-        bundle.putString("eventCategory", category);
-        bundle.putString("eventAction", action);
-        bundle.putString("eventLabel", label);
+        bundle.putString("gau_event_category", category);
+        bundle.putString("gau_event_action", action);
+        bundle.putString("gau_event_label", label);
         logEvent(eventName, bundle);
     }
 
     public static void setUserProperty(String propertyName, String propertyValue){
         firebaseAnalytics.setUserProperty(propertyName,propertyValue);
+    }
+    public static void setUserId(String userId) {
+        firebaseAnalytics.setUserId(userId);
+    }
+
+    public static String getUserPseudoId() {
+        return user_pseudo_id;
+    }
+
+    public static String getSessionId() {
+        return session_id;
     }
 }
 

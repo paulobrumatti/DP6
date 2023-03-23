@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        GTMHelper.setUserProperty("user_pseudo_id", GTMHelper.getUserPseudoId());
         GTMHelper.pushScreenview(this, SCREEN_NAME);
 
         Bundle itemJeggings = new Bundle();
@@ -223,6 +223,51 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 // Log ecommerce_purchase event with ecommerce bundle
         // nao existe mais o static  FirebaseAnalytics.Event.ECOMMERCE_PURCHASE
         GTMHelper.logEvent("ecommerce_purchase", ecommerceBundle );
+
+        // Define promotion with relevant parameters
+
+        Bundle promotion = new Bundle();
+        promotion.putString( FirebaseAnalytics.Param.ITEM_ID, "PROMO_1234" ); // promotion ID; either ITEM_ID or ITEM_NAME is required
+        promotion.putString( FirebaseAnalytics.Param.ITEM_NAME, "Summer Sale" ); // promotion name
+        promotion.putString( FirebaseAnalytics.Param.CREATIVE_NAME, "summer_banner2" );
+        promotion.putString( FirebaseAnalytics.Param.CREATIVE_SLOT, "banner_slot1" );
+
+// Prepare ecommerce bundle
+
+        ArrayList <Bundle>promotions = new ArrayList<Bundle>();
+        promotions.add(promotion);
+
+        Bundle ecommerceBundlePromotion = new Bundle();
+        ecommerceBundlePromotion.putParcelableArrayList("promotions", promotions );
+
+// Log view_item, view_item_list, or view_search_results event with ecommerce bundle
+
+        GTMHelper.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, ecommerceBundlePromotion );
+
+        Bundle promotionClique = new Bundle();
+        promotionClique.putString( FirebaseAnalytics.Param.ITEM_ID, "PROMO_1234"); // promotion ID; either ITEM_ID or ITEM_NAME is required
+        promotionClique.putString( FirebaseAnalytics.Param.ITEM_NAME, "Summer Sale"); // promotion name
+        promotionClique.putString( FirebaseAnalytics.Param.CREATIVE_NAME, "summer_banner2");
+        promotionClique.putString( FirebaseAnalytics.Param.CREATIVE_SLOT, "banner_slot1");
+
+// Prepare ecommerce bundle
+
+        ArrayList <Bundle>promotionsCliques = new ArrayList<Bundle>();
+        promotionsCliques.add(promotionClique);
+
+        Bundle ecommerceBundleCliques = new Bundle();
+        ecommerceBundleCliques.putParcelableArrayList("promotions", promotionsCliques );
+
+// Set properties for the event to be shown in the Google Analytics (Firebase) reports.
+// These properties will not impact the Universal Analytics reporting.
+
+        ecommerceBundleCliques.putString( FirebaseAnalytics.Param.CONTENT_TYPE, "Internal Promotions" );
+        ecommerceBundleCliques.putString( FirebaseAnalytics.Param.ITEM_ID, "PROMO_1234" );
+
+// Log select_content, view_item_list, or view_search_results event with ecommerce bundle
+
+        GTMHelper.logEvent( FirebaseAnalytics.Event.SELECT_CONTENT, ecommerceBundleCliques );
+
 
         mLoginView = findViewById(R.id.login);
         mPasswordView = findViewById(R.id.password);

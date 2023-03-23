@@ -33,9 +33,11 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-analytics:18.0.2'
     implementation 'com.google.android.gms:play-services-tagmanager:18.0.2'
-    implementation 'com.google.firebase:firebase-core:21.1.1'
-    implementation 'com.google.firebase:firebase-config:21.2.1'
-    implementation 'com.google.firebase:firebase-inappmessaging-display:20.3.1'
+
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-config'
+    implementation 'com.google.firebase:firebase-inappmessaging-display'
 }
 
 apply plugin: 'com.google.gms.google-services'
