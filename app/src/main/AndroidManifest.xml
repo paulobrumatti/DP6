@@ -34,13 +34,15 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_login"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ContentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_content"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <!--
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to

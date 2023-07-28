@@ -9,6 +9,8 @@
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
         <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../app/src/main/res;file://$MODULE_DIR$/../../../app/src/debug/res;file://$MODULE_DIR$/../../../app/build/generated/res/google-services/debug;file://$MODULE_DIR$/../../../app/build/generated/res/resValues/debug" />
         <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../app/src/main/res;file://$MODULE_DIR$/../../../app/src/debug/res;file://$MODULE_DIR$/../../../app/build/generated/res/google-services/debug;file://$MODULE_DIR$/../../../app/build/generated/res/resValues/debug" />
+        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
@@ -104,6 +106,8 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics:21.3.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-config:21.4.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-abt:21.1.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-inappmessaging-display:20.3.2@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.firebase:firebase-inappmessaging:20.3.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-inappmessaging-display:20.3.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-inappmessaging:20.3.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:protolite-well-known-types:18.0.0@aar" level="project" />

@@ -62,6 +62,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         GTMHelper.setUserProperty("user_pseudo_id", GTMHelper.getUserPseudoId());
         GTMHelper.pushScreenview(this, SCREEN_NAME);
 
+
+        // Define promotion with relevant parameters
+/*
+        Bundle promotion = new Bundle();
+        promotion.putString( FirebaseAnalytics.Param.ITEM_ID, "PROMO_1234" ); // promotion ID; either ITEM_ID or ITEM_NAME is required
+        promotion.putString( FirebaseAnalytics.Param.ITEM_NAME, "Summer Sale" ); // promotion name
+        promotion.putString( FirebaseAnalytics.Param.CREATIVE_NAME, "summer_banner2" );
+        promotion.putString( FirebaseAnalytics.Param.CREATIVE_SLOT, "banner_slot1" );
+
+// Prepare ecommerce bundle
+
+        ArrayList <Bundle>promotions = new ArrayList<Bundle>();
+        promotions.add(promotion);
+
+        Bundle ecommerceBundle = new Bundle();
+        ecommerceBundle.putParcelableArrayList("promotions", promotions );
+
+// Log view_item, view_item_list, or view_search_results event with ecommerce bundle
+
+        GTMHelper.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, ecommerceBundle);
+        GTMHelper.logEvent(FirebaseAnalytics.Event.VIEW_ITEM_LIST, ecommerceBundle);
+        GTMHelper.logEvent(FirebaseAnalytics.Event.VIEW_SEARCH_RESULTS, ecommerceBundle);
+        */
         Bundle itemJeggings = new Bundle();
         itemJeggings.putString(FirebaseAnalytics.Param.ITEM_ID, "SKU_123");
         itemJeggings.putString(FirebaseAnalytics.Param.ITEM_NAME, "jeggings");
@@ -69,14 +92,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         itemJeggings.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "black");
         itemJeggings.putString(FirebaseAnalytics.Param.ITEM_BRAND, "Google");
         itemJeggings.putDouble(FirebaseAnalytics.Param.PRICE, 9.99);
+        itemJeggings.putString("dimension11", "cor");
 
         Bundle itemBoots = new Bundle();
         itemBoots.putString(FirebaseAnalytics.Param.ITEM_ID, "SKU_456");
         itemBoots.putString(FirebaseAnalytics.Param.ITEM_NAME, "boots");
-        itemBoots.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "shoes");
+        itemBoots.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, null);
         itemBoots.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "brown");
         itemBoots.putString(FirebaseAnalytics.Param.ITEM_BRAND, "Google");
         itemBoots.putDouble(FirebaseAnalytics.Param.PRICE, 24.99);
+        itemBoots.putString("dimension11", "cor");
 
         Bundle itemSocks = new Bundle();
         itemSocks.putString(FirebaseAnalytics.Param.ITEM_ID, "SKU_789");
@@ -85,7 +110,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         itemSocks.putString(FirebaseAnalytics.Param.ITEM_VARIANT, "red");
         itemSocks.putString(FirebaseAnalytics.Param.ITEM_BRAND, "Google");
         itemSocks.putDouble(FirebaseAnalytics.Param.PRICE, 5.99);
-
         Bundle itemJeggingsCart = new Bundle(itemJeggings);
         itemJeggingsCart.putLong(FirebaseAnalytics.Param.QUANTITY, 2);
 
@@ -98,6 +122,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Bundle itemSocksWithIndex = new Bundle(itemSocks);
         itemSocksWithIndex.putLong(FirebaseAnalytics.Param.INDEX, 3);
 
+/*
         Bundle viewItemListParams = new Bundle();
         viewItemListParams.putString(FirebaseAnalytics.Param.ITEM_LIST_ID, "L001");
         viewItemListParams.putString(FirebaseAnalytics.Param.ITEM_LIST_NAME, "Related products");
@@ -123,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         viewItemList.add(itemJeggingsWithIndex);
         viewItemParams.putParcelableArrayList(FirebaseAnalytics.Param.ITEMS, viewItemList);
         GTMHelper.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, viewItemParams);
-
+*/
         Bundle itemJeggingsWishlist = new Bundle(itemJeggings);
         itemJeggingsWishlist.putLong(FirebaseAnalytics.Param.QUANTITY, 2);
 
@@ -135,6 +160,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         addToWishlistParams.putParcelableArrayList(FirebaseAnalytics.Param.ITEMS,addItemList);
         GTMHelper.logEvent(FirebaseAnalytics.Event.ADD_TO_CART, addToWishlistParams);
 
+        addToWishlistParams = new Bundle();
+        addToWishlistParams.putString(FirebaseAnalytics.Param.CURRENCY, "USD");
+        addToWishlistParams.putDouble(FirebaseAnalytics.Param.VALUE, 2 * 9.99);
+        addItemList = new ArrayList<>();
+        itemBootsWithIndex = new Bundle(itemBoots);
+        itemBootsWithIndex.putLong(FirebaseAnalytics.Param.INDEX, 1);
+        addItemList.add(itemBootsWithIndex);
+
+        addToWishlistParams.putParcelableArrayList(FirebaseAnalytics.Param.ITEMS,addItemList);
+        GTMHelper.logEvent(FirebaseAnalytics.Event.ADD_TO_CART, addToWishlistParams);
+
+/*
         Bundle beginCheckoutParams = new Bundle();
         beginCheckoutParams.putString(FirebaseAnalytics.Param.CURRENCY, "USD");
         beginCheckoutParams.putDouble(FirebaseAnalytics.Param.VALUE, 14.98);
@@ -268,7 +305,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         GTMHelper.logEvent( FirebaseAnalytics.Event.SELECT_CONTENT, ecommerceBundleCliques );
 
-
+*/
         mLoginView = findViewById(R.id.login);
         mPasswordView = findViewById(R.id.password);
         mLoginFormView = findViewById(R.id.login_form);
