@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 33
+    compileSdk 33
 
     defaultConfig {
         applicationId "br.com.dp6.datascience"
@@ -29,12 +29,12 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.gms:play-services-analytics:18.0.2'
-    implementation 'com.google.android.gms:play-services-tagmanager:18.0.2'
+    implementation 'com.google.android.gms:play-services-analytics:18.0.3'
+    implementation 'com.google.android.gms:play-services-tagmanager:18.0.3'
 
-    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    implementation platform('com.google.firebase:firebase-bom:32.2.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-config'
     implementation 'com.google.firebase:firebase-inappmessaging-display'
@@ -42,7 +42,7 @@ dependencies {
 
 apply plugin: 'com.google.gms.google-services'
 
-configurations.all {
+configurations.configureEach {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
         def requested = details.requested
         if (requested.group == 'com.android.support') {
